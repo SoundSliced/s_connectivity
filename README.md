@@ -57,7 +57,7 @@ For more information, see the Flutter networking documentation.
 Import:
 
 ```dart
-import 'package:s_connectivity/internet_connectivity.dart';
+import 'package:s_connectivity/s_connectivity.dart';
 ```
 
 ### Basic usage (listen + read current state)
@@ -81,6 +81,8 @@ void initState() {
   );
 }
 ```
+
+If you want callbacks to fire for the currently-known value right away (without doing a fresh probe), set `emitInitialStatus: true`.
 
 Read current state anywhere:
 
@@ -120,8 +122,8 @@ await AppInternetConnectivity.hardReset();
 await AppInternetConnectivity.initialiseInternetConnectivityListener(
   emitInitialStatus: true,
   showDebugLog: true,
-  onConnected: () => debugPrint('🟢 Connected'),
-  onDisconnected: () => debugPrint('🔴 Disconnected'),
+  onConnected: () => debugPrint('Connected'),
+  onDisconnected: () => debugPrint('Disconnected'),
 );
 ```
 

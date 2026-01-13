@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:s_connectivity/src/internet_connection.dart';
+import 'package:s_connectivity/src/s_connection.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
