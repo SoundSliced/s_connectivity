@@ -8,7 +8,7 @@ A small Flutter utility package to detect Internet connectivity changes and show
 
 ## Demo
 
-![Connectivity demo](https://raw.githubusercontent.com/$USERNAME/$PACKAGE_NAME/main/example/assets/example.gif)
+![Connectivity demo](https://raw.githubusercontent.com/SoundSliced/s_connectivity/main/example/assets/example.gif)
 
 ## Features
 
@@ -26,7 +26,7 @@ Add the dependency:
 
 ```yaml
 dependencies:
-  s_connectivity: ^1.0.0
+  s_connectivity: ^1.0.1
 ```
 
 Then run `flutter pub get`.
