@@ -1,6 +1,8 @@
 name: s_connectivity
 description: A small Flutter utility package to detect Internet connectivity changes and show ready‑to‑use offline UI components
-issue_tracker: https://github.com/SoundSliced/s_connectivity/issuesrepository: https://github.com/SoundSliced/s_connectivityversion: 1.0.0
+version: 1.0.0
+repository: https://github.com/SoundSliced/s_connectivity
+issue_tracker: https://github.com/SoundSliced/s_connectivity/issues
 homepage: https://github.com/SoundSliced/s_connectivity
 
 environment:
