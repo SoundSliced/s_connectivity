@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:s_connectivity/s_connectivity.dart';
-import 'package:sizer/sizer.dart';
 
 void main() {
   runApp(const MyApp());

@@ -26,7 +26,7 @@ Add the dependency:
 
 ```yaml
 dependencies:
-  s_connectivity: ^1.0.1
+  s_connectivity: ^2.0.0
 ```
 
 Then run `flutter pub get`.
