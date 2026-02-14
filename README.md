@@ -2,9 +2,9 @@
 
 A small Flutter utility package to detect Internet connectivity changes and show ready‑to‑use offline UI components.
 
-> This package exposes a simple connectivity listener (`AppInternetConnectivity`) plus two widgets:
-> - `NoInternetWidget` (small indicator)
-> - `NoInternetConnectionPopup` (full-screen overlay)
+> This package exposes a simple connectivity listener (`AppInternetConnectivity`) plus:
+> - `NoInternetWidget` (small indicator widget)
+> - Automatic snackbar connectivity warnings via the Modal snackbar system
 
 ## Demo
 
@@ -17,7 +17,9 @@ A small Flutter utility package to detect Internet connectivity changes and show
 - Subscribe via `AppInternetConnectivity.listenable` (preferred)
 - Drop-in UI:
   - `NoInternetWidget` (customizable icon, colors, size, optional animation)
-  - `NoInternetConnectionPopup` (overlay shown when offline)
+  - Auto-show/dismiss snackbar on connectivity changes via `showNoInternetSnackbar`
+  - Custom snackbar messages via `noInternetSnackbarMessage`
+  - Manual snackbar control via `toggleConnectivitySnackbar()`
 - Includes an example app under `example/`
 
 ## Getting started
@@ -26,10 +28,17 @@ Add the dependency:
 
 ```yaml
 dependencies:
-  s_connectivity: ^2.0.0
+  s_connectivity: ^3.0.0
 ```
 
 Then run `flutter pub get`.
+
+> **⚠️ BREAKING CHANGES in v3.0.0:**
+>
+> - `NoInternetConnectionPopup` widget has been removed
+> - Connectivity warnings now use the Modal snackbar system
+> - Dependencies on `assorted_layout_widgets` and `sizer` have been removed
+> - See [CHANGELOG](CHANGELOG.md) for full details
 
 ### Permissions
 
@@ -78,6 +87,9 @@ void initState() {
     onDisconnected: () {
       // Called when connectivity is lost.
     },
+    // New in v3.0.0: auto-show snackbar when offline
+    // showNoInternetSnackbar: true,
+    // noInternetSnackbarMessage: 'No internet connection',
   );
 }
 ```
@@ -127,23 +139,22 @@ await AppInternetConnectivity.initialiseInternetConnectivityListener(
 );
 ```
 
-#### 2) Offline popup overlay (full screen)
+#### 2) Automatic snackbar on connectivity change
 
-Show `NoInternetConnectionPopup` only when offline:
+Enable the built-in snackbar that auto-shows when offline and dismisses when back online:
 
 ```dart
-Stack(
-  children: [
-    const YourPage(),
-    ValueListenableBuilder<bool>(
-      valueListenable: AppInternetConnectivity.listenable,
-      builder: (context, isConnected, _) {
-        if (!isConnected) return const NoInternetConnectionPopup();
-        return const SizedBox.shrink();
-      },
-    ),
-  ],
+AppInternetConnectivity.initialiseInternetConnectivityListener(
+  showNoInternetSnackbar: true,
+  noInternetSnackbarMessage: 'You are offline', // optional custom message
 );
+```
+
+To manually control the snackbar:
+
+```dart
+// Show or dismiss the connectivity snackbar programmatically
+AppInternetConnectivity.toggleConnectivitySnackbar();
 ```
 
 #### 3) Small offline indicator widget
