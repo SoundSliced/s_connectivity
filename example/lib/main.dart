@@ -177,7 +177,7 @@ class _ConnectivityDemoState extends State<ConnectivityDemo> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'NoInternetWidget',
+                  'No Internet Widget',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -298,7 +298,7 @@ class _ConnectivityDemoState extends State<ConnectivityDemo> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'NoInternetConnectionPopup',
+              'No Internet Connection Snackbar',
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -310,7 +310,7 @@ class _ConnectivityDemoState extends State<ConnectivityDemo> {
             ),
             const SizedBox(height: 12),
             SwitchListTile(
-              title: const Text('Enable Popup'),
+              title: const Text('Enable Snackbar'),
               value: _showPopup,
               onChanged: (value) => setState(() {
                 _showPopup = value;
