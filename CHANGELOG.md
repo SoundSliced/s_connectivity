@@ -5,20 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
-## 4.0.0
+## 3.0.0
 - `s_packages` dependency upgraded to ^1.4.1
 - **BREAKING:** Renamed `AppInternetConnectivity` class to `SConnectivity` — all call sites must be updated (e.g. `AppInternetConnectivity.listenable` → `SConnectivity.listenable`)
 - **BREAKING:** Renamed source file from `s_connection.dart` to `s_connectivity.dart` — direct imports must be updated
 - Made `toggleConnectivitySnackbar()` private (`_toggleConnectivitySnackbar`) — use the `showNoInternetSnackbar` setter instead for manual snackbar control
-
-## 3.1.0
-- `s_packages` dependency upgraded to ^1.4.0
 - Added `SConnectivityOverlay` widget — a convenience wrapper that sets up the Modal overlay system so the "No Internet" snackbar works without requiring users to know about or manually call `Modal.appBuilder`
 - Added `SConnectivityOverlay.appBuilder` static method — drop-in replacement for `Modal.appBuilder` that can be passed directly to `MaterialApp(builder: ...)`
 - Safe to use alongside an existing `Modal.appBuilder` call — double-wrapping is prevented automatically thanks to the idempotent `appBuilder`
-
-## 3.0.0
-- `s_packages` dependency upgraded to ^1.3.0
 - **BREAKING:** Removed `NoInternetConnectionPopup` widget; connectivity warnings now use the Modal snackbar system
 - Added `showNoInternetSnackbar` static property to auto-show/dismiss a staggered snackbar on connectivity changes
 - Added `noInternetSnackbarMessage` parameter to `initialiseInternetConnectivityListener()` for custom messages

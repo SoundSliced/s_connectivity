@@ -30,19 +30,17 @@ Add the dependency:
 
 ```yaml
 dependencies:
-  s_connectivity: ^4.0.0
+  s_connectivity: ^3.0.0
 ```
 
 Then run `flutter pub get`.
 
-> **⚠️ BREAKING CHANGES in v4.0.0:**
+> **⚠️ BREAKING CHANGES in v3.0.0:**
 >
 > - `AppInternetConnectivity` class has been renamed to `SConnectivity` — all call sites must be updated (e.g. `AppInternetConnectivity.listenable` → `SConnectivity.listenable`)
 > - Source file renamed from `s_connection.dart` to `s_connectivity.dart` — direct imports must be updated
 > - `toggleConnectivitySnackbar()` is now private — use the `showNoInternetSnackbar` setter instead for manual snackbar control
 > - See [CHANGELOG](CHANGELOG.md) for full details
-
-> **⚠️ BREAKING CHANGES in v3.0.0:**
 >
 > - `NoInternetConnectionPopup` widget has been removed
 > - Connectivity warnings now use the Modal snackbar system
@@ -189,7 +187,7 @@ AppBar(
 )
 ```
 
-#### 4) SConnectivityOverlay (New in v3.1.0)
+#### 4) SConnectivityOverlay (New in v3.0.0)
 
 A convenience wrapper that sets up the Modal overlay system automatically, so the "No Internet" snackbar works without you needing to know about or manually call `Modal.appBuilder`:
 
