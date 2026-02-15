@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           home: const ConnectivityDemo(),
+          builder: SConnectivityOverlay.appBuilder,
         );
       },
     );
@@ -36,7 +37,6 @@ class _ConnectivityDemoState extends State<ConnectivityDemo> {
   // Debug toggles to isolate hot-restart-only Flutter Web view disposal asserts.
   // Flip these to narrow whether the issue is caused by UI rebuilds/setState
   // or by connectivity stream updates themselves.
-  static const bool kEnablePopupOverlay = true;
   static const bool kEnableNoInternetWidget = true;
 
   final _eventLog = <String>[];
@@ -60,12 +60,13 @@ class _ConnectivityDemoState extends State<ConnectivityDemo> {
   Future<void> _initializeConnectivity() async {
     // Flutter Web hot-restart can leave stale listeners/streams alive briefly.
     // This guarantees a clean slate before re-subscribing.
-    await AppInternetConnectivity.hardReset();
-    await AppInternetConnectivity.initialiseInternetConnectivityListener(
+    await SConnectivity.initialiseInternetConnectivityListener(
       emitInitialStatus: true,
       showDebugLog: true,
       onConnected: () => _logEvent('🟢 Connected'),
-      onDisconnected: () => _logEvent('🔴 Disconnected'),
+      onDisconnected: () {
+        _logEvent('🔴 Disconnected');
+      },
     );
   }
 
@@ -84,7 +85,7 @@ class _ConnectivityDemoState extends State<ConnectivityDemo> {
   @override
   void dispose() {
     // We don't await in dispose, but we still call it for cleanup.
-    AppInternetConnectivity.disposeInternetConnectivityListener();
+    SConnectivity.disposeInternetConnectivityListener();
     super.dispose();
   }
 
@@ -95,43 +96,27 @@ class _ConnectivityDemoState extends State<ConnectivityDemo> {
         title: const Text('S_Connectivity Demo'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Current Status Card
-                _buildStatusCard(),
-                const SizedBox(height: 20),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Current Status Card
+            _buildStatusCard(),
+            const SizedBox(height: 20),
 
-                // Widget Demo Section
-                _buildWidgetDemoSection(),
-                const SizedBox(height: 20),
+            // Widget Demo Section
+            _buildWidgetDemoSection(),
+            const SizedBox(height: 20),
 
-                // Popup Demo Section
-                _buildPopupDemoSection(),
-                const SizedBox(height: 20),
+            // Popup Demo Section
+            _buildPopupDemoSection(),
+            const SizedBox(height: 20),
 
-                // Event Log
-                _buildEventLog(),
-              ],
-            ),
-          ),
-
-          // Show popup overlay when enabled
-          if (kEnablePopupOverlay && _showPopup)
-            ValueListenableBuilder<bool>(
-              valueListenable: AppInternetConnectivity.listenable,
-              builder: (context, isConnected, _) {
-                if (!isConnected) {
-                  return const NoInternetConnectionPopup();
-                }
-                return const SizedBox.shrink();
-              },
-            ),
-        ],
+            // Event Log
+            _buildEventLog(),
+          ],
+        ),
       ),
     );
   }
@@ -152,7 +137,7 @@ class _ConnectivityDemoState extends State<ConnectivityDemo> {
             ),
             const SizedBox(height: 12),
             ValueListenableBuilder<bool>(
-              valueListenable: AppInternetConnectivity.listenable,
+              valueListenable: SConnectivity.listenable,
               builder: (context, isConnected, _) {
                 return Row(
                   children: [
@@ -327,7 +312,10 @@ class _ConnectivityDemoState extends State<ConnectivityDemo> {
             SwitchListTile(
               title: const Text('Enable Popup'),
               value: _showPopup,
-              onChanged: (value) => setState(() => _showPopup = value),
+              onChanged: (value) => setState(() {
+                _showPopup = value;
+                SConnectivity.showNoInternetSnackbar = value;
+              }),
               dense: true,
               contentPadding: EdgeInsets.zero,
             ),

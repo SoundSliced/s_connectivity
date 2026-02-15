@@ -58,7 +58,7 @@ To test the app's behavior during connectivity changes:
 
 ### Initialization
 ```dart
-AppInternetConnectivity.initialiseInternetConnectivityListener(
+SConnectivity.initialiseInternetConnectivityListener(
   () => print('Connected'),
   () => print('Disconnected'),
 );
@@ -67,9 +67,9 @@ AppInternetConnectivity.initialiseInternetConnectivityListener(
 ### Reactive UI
 ```dart
 OnBuilder(
-  listenTo: AppInternetConnectivity.controller,
+  listenTo: SConnectivity.controller,
   builder: () {
-    return Text(AppInternetConnectivity.isConnected ? 'Online' : 'Offline');
+    return Text(SConnectivity.isConnected ? 'Online' : 'Offline');
   },
 )
 ```

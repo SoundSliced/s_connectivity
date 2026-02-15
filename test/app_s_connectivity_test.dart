@@ -1,28 +1,28 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:s_packages/s_connectivity/src/s_connection.dart';
+import 'package:s_packages/s_connectivity/src/s_connectivity.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  group('AppInternetConnectivity', () {
+  group('SConnectivity', () {
     test('emitCurrentStateNow triggers disconnected callback when false', () {
       var connectedCalls = 0;
       var disconnectedCalls = 0;
 
       // Ensure disposed state is clean.
-      AppInternetConnectivity.disposeInternetConnectivityListener();
+      SConnectivity.disposeInternetConnectivityListener();
 
       // Initialize with callbacks.
-      AppInternetConnectivity.initialiseInternetConnectivityListener(
+      SConnectivity.initialiseInternetConnectivityListener(
         onConnected: () => connectedCalls++,
         onDisconnected: () => disconnectedCalls++,
         emitInitialStatus: false,
       );
 
       // Default is false.
-      expect(AppInternetConnectivity.isConnected, isFalse);
+      expect(SConnectivity.isConnected, isFalse);
 
-      AppInternetConnectivity.emitCurrentStateNow();
+      SConnectivity.emitCurrentStateNow();
 
       expect(connectedCalls, 0);
       expect(disconnectedCalls, 1);
