@@ -1,3 +1,6 @@
+## [4.0.0]
+- `s_packages` dependency upgraded to ^3.0.0
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
